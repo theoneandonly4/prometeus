@@ -58,13 +58,13 @@ function dataInitialize() {
     context = {
       mode: 'local',
       path: '/Users',
-      user: 'New User'
+      user: ''
     }
 
     user = new Item('Users', 'User')
     items.push(user)
     localStorage.context = JSON.stringify(context)
-    localStorage.items =   JSON.stringify(items)
+    localStorage.items = JSON.stringify(items)
   }
 }
 

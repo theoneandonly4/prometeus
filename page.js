@@ -9,7 +9,8 @@ function changeUrl() {
 function changePath() {
   var context = JSON.parse(localStorage.context)
   document.getElementById('path')
-  path.innerHTML = context.path.replace(/\//g, ' > ')
+  path.addEventListener('mouseup', pathChange)
+  path.innerHTML = '<h3>' + context.path.replace(/\//g, ' > ') + '</h3>'
 }
 
 function changeMain() {
@@ -43,11 +44,46 @@ function changeMain() {
 }
 
 function displayItem(item) {
+  var main = document.getElementById('main')
+  var div = document.createElement('div')
+  var title = document.createElement('h4')
+  var type = document.createElement('img')
+
+  div.id = item.id
+  div.classList.add('item')
+  div.classList.add(item.type)
+
+  title.classList.add('name')
+  title.innerHTML = item.name
+  title.addEventListener('mouseup', nameChange)
+
+  type.classList.add('type')
+  type.setAttribute('src', './src/img/pixel blue.png')
+  type.addEventListener('mouseup', typeChange)
+
+  div.appendChild(title)
+  div.appendChild(type)
+  main.appendChild(div)
+}
+
+function pathChange() {
 
 }
 
+function nameChange() {
+
+}
+
+function typeChange() {
+
+}
 
 function page() {
+  //Remove Context Menu default behavior (right click)
+  document.body.addEventListener('contextmenu', function(e) {
+    e.preventDefault()
+    return false
+  })
   changeUrl()
   changePath()
   changeMain()
