@@ -50,7 +50,7 @@ function Link(item1, item2, type) {
 
 function dataInitialize() {
   var context
-  var items = []
+  // var items = []
   var links = []
   var user
 
@@ -61,10 +61,10 @@ function dataInitialize() {
       user: ''
     }
 
-    user = new Item('Users', 'User')
-    items.push(user)
+    // user = new Item('Users', 'User')
+    // items.push(user)
     localStorage.context = JSON.stringify(context)
-    localStorage.items = JSON.stringify(items)
+    // localStorage.items = JSON.stringify(items)
   }
 }
 
