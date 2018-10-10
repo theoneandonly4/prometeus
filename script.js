@@ -43,10 +43,12 @@ function Item(parent, type, target) {
 }
 
 // Link Constructor
-function Link(item1, item2, type) {
+function Link(item1, item2, type, main) {
   this.id = generateLinkId()
   this.item1 = item1
   this.item2 = item2
+  this.type = type
+  this.main = main
 }
 
 function dataInitialize() {

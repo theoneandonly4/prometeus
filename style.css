@@ -13,20 +13,20 @@ div.column {
 div #input {
   background-color: lightgreen;
   width: 15%;
-  margin-left: 2.3%;
+  margin-right: 2.3%;
 }
 
 div #current {
   background-color: lightslategray;
-  margin-right: 2.3%;
-  width: 60%;
   margin-left: 2.3%;
+  width: 60%;
+  margin-right: 2.3%;
 }
 
 div #output {
   background-color: lightblue;
   width: 15%;
-  margin-right: 2.3%
+  margin-left: 2.3%
 }
 
 div.item {
