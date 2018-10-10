@@ -2,6 +2,33 @@ body {
   background-color: slategray;
 }
 
+div.line {
+  width: 100%;
+}
+
+div.column {
+  display: inline-block;
+}
+
+div #input {
+  background-color: lightgreen;
+  width: 15%;
+  margin-left: 2.3%;
+}
+
+div #current {
+  background-color: lightslategray;
+  margin-right: 2.3%;
+  width: 60%;
+  margin-left: 2.3%;
+}
+
+div #output {
+  background-color: lightblue;
+  width: 15%;
+  margin-right: 2.3%
+}
+
 div.item {
   display: inline-block;
   border-style: dashed solid dashed solid;

@@ -28,7 +28,7 @@ function generateItemId() {
 }
 
 // Item Constructor
-function Item(parent, type) {
+function Item(parent, type, target) {
   this.id = generateItemId()
   this.parent = parent
   if (!type) {
@@ -39,6 +39,7 @@ function Item(parent, type) {
     this.type = type
     this.name = 'New ' + type
   }
+  this.target = target
 }
 
 // Link Constructor
@@ -50,21 +51,24 @@ function Link(item1, item2, type) {
 
 function dataInitialize() {
   var context
-  // var items = []
+  var items = []
   var links = []
   var user
 
   if (!localStorage.context) {
     context = {
       mode: 'local',
-      path: '/Users',
-      user: ''
+      path: '/',
+      user: '',
+      input: 'Agent',
+      current: 'Activity',
+      output: 'System'
     }
 
-    // user = new Item('Users', 'User')
-    // items.push(user)
     localStorage.context = JSON.stringify(context)
-    // localStorage.items = JSON.stringify(items)
+    localStorage.items = JSON.stringify(items)
+    localStorage.links = JSON.stringify(links)
+
   }
 }
 

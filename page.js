@@ -10,69 +10,58 @@ function changePath() {
   var context = JSON.parse(localStorage.context)
   document.getElementById('path')
   path.addEventListener('mouseup', pathChange)
-  path.innerHTML = '<h3>' + context.path.replace(/\//g, ' > ') + '</h3>'
+  if (context.path == '/') {
+    path.innerHTML = '<h3>' + ' > Prometeus' + '</h3>'
+  }
+  else {
+    path.innerHTML = '<h3>' + context.path.replace(/\//g, ' > ') + '</h3>'
+  }
 }
 
 function changeMain() {
   var context = JSON.parse(localStorage.context)
   var items = JSON.parse(localStorage.items)
-  if (localStorage.items) {
-    var links = JSON.parse(localStorage.links)
-  }
-  var rootNode = context.path.substr(1)
+  var links = JSON.parse(localStorage.links)
+
   var i, j
-  if (rootNode.indexOf('/') > -1) {
-    rootNode = rootNode.substr(0, rootNode.indexOf('/'))
+  // var inputEmpty = true
+  // var currentEmpty = true
+  // var outputEmpty = true
+
+  var newInput, newCurrent, newOutput
+
+  for (i = 0; i < items.length; i++) {
+    if (items[i].parent == context.path) {
+      displayItem(items[i])
+      // switch (items[i].target) {
+      //   case 'input':
+      //     inputEmpty = false
+      //     break;
+      //   case 'current':
+      //     currentEmpty = false
+      //     break;
+      //   case 'input':
+      //     outputEmpty = false
+      //     break;
+      // }
+    }
   }
-  switch (rootNode) {
-    case 'Users':
-        //Display Existing Users
-        for (i = 0; i < items.length; i++) {
-          if (items[i].type == 'User') {
-            displayItem(items[i].id)
-            for (j = 0; links.length; j++) {
-              if (links.item1 == item[i].id) {
-                displayItem()
-              }
-            }
-          }
-        }
-        //Display New User
-        user = new Item('Users', 'User')
-        displayItem(user)
 
+  displayItem(new Item(context.path, context.input, 'input'))
+  displayItem(new Item(context.path, context.current, 'current'))
+  displayItem(new Item(context.path, context.output, 'output'))
 
-      break;
-    case 'Home':
+// TODO: add parent button link to move up the path
 
-      break;
-    case 'Orgas':
-
-      break;
-    case 'Projects':
-
-      break;
-    default:
-
-  }
 }
 
-function displayItem(id) {
-  var items = JSON.parse(localStorage.items)
-  var item, i
-  for (i = 0; i < items.length; i++) {
-      if (items[i].id = id) {
-        item = items[i]
-        break
-      }
-  }
-  if (!item) {
-    return false
-  }
-  var main = document.getElementById('main')
+function displayItem(item) {
+
+  var target = document.getElementById(item.target)
   var div = document.createElement('div')
   var title = document.createElement('h4')
   var type = document.createElement('img')
+  // TODO: add zoom image link to switch Item and move downpath
 
   div.id = item.id
   div.classList.add('item')
@@ -88,7 +77,7 @@ function displayItem(id) {
 
   div.appendChild(title)
   div.appendChild(type)
-  main.appendChild(div)
+  target.appendChild(div)
 }
 
 function pathChange() {
