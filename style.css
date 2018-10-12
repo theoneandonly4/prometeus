@@ -36,12 +36,8 @@ div.item {
   margin: 10px;
 }
 
-div.item.User {
-  border-style: solid solid dashed solid;
-}
-
-div.item h4 {
-  align-content: center;
+div input.nameInput {
+  display: block;
 }
 
 div.item img.type {

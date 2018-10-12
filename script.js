@@ -79,8 +79,32 @@ function dataInitialize() {
   }
 }
 
-function changeName() {
-  
+function changeName(e) {
+  // Check "Enter" key
+  if (e.key != 'Enter') {
+    return false
+  }
+  var items = JSON.parse(localStorage.items)
+  var newItems = JSON.parse(localStorage.newItems)
+  var i, item
+  for (i = 0; i < items.length; i++) {
+    if (items[i].id == e.target.parentNode.id) {
+      items[i].name = e.target.value
+      break
+    }
+  }
+  if (!item) {
+    for (i = 0; i < newItems.length; i++) {
+      if (newItems[i].id == e.target.parentNode.id) {
+        item = new Item(newItems[i].parent, newItems[i].type, newItems[i].target)
+        item.name = e.target.value
+        items.push(item)
+        break
+      }
+    }
+  }
+  localStorage.items = JSON.stringify(items)
+  console.log(item)
 }
 
 function prometeus() {

@@ -101,13 +101,47 @@ function pathChange(e) {
 }
 
 function nameChange(e) {
+
+  //Check Right click
+  if (e.button != 2) {
+    return false
+  }
+
+  var items = JSON.parse(localStorage.items)
+  var newItems = JSON.parse(localStorage.newItems)
+  //Remove any other Inputs - entered values are lost
+  var inputs = document.getElementsByTagName('input')
+  var i, j, title, id, name
+  for (i = 0; i < inputs.length; i++) {
+    title = document.createElement('h4')
+    id = inputs[i].parentNode.id
+    for (j = 0; j < items.length; j++) {
+      if (items[j].id == id) {
+        name = items[j].name
+        break
+      }
+    }
+    if (!name) {
+      for (j = 0; j < newItems.length; j++) {
+        if (newItems[j].id == id) {
+          name = newItems[j].name
+          break
+        }
+      }
+    }
+    title.classList.add('name')
+    title.innerHTML = name
+    title.addEventListener('mouseup', nameChange)
+
+    inputs[i].parentNode.replaceChild(title, inputs[i])
+  }
+
   var div = document.getElementById(e.target.parentNode.id)
-  var titles = div.getElementsByTagName('h4')
+  var titles = div.getElementsByClassName('name')
   var title = titles[0]
-  console.log(title)
   var titleInput = document.createElement('input')
 
-  titleInput.classList.add('name')
+  titleInput.classList.add('nameInput')
   titleInput.setAttribute('type', 'text')
   titleInput.setAttribute('name', 'name')
   titleInput.setAttribute('value', e.target.innerText)
@@ -115,8 +149,8 @@ function nameChange(e) {
   titleInput.setAttribute('maxlength', '20')
   titleInput.addEventListener('keypress', changeName)
 
-  div.replaceChild(title, titleInput)
-  console.log(e)
+  div.replaceChild(titleInput, title)
+
 }
 
 function typeChange(e) {
