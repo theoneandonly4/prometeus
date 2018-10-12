@@ -55,6 +55,7 @@ function dataInitialize() {
   var context
   var items = []
   var links = []
+  var types = []
   var user
 
   if (!localStorage.context) {
@@ -66,14 +67,21 @@ function dataInitialize() {
       current: 'Activity',
       output: 'System'
     }
-
+    types = [
+      {"name":"Agent","img":"./src/img/agent.png"},
+      {"name":"Activity","img":"./src/img/activity.jpg"},
+      {"name":"System","img":"./src/img/system.png"}
+    ]
     localStorage.context = JSON.stringify(context)
     localStorage.items = JSON.stringify(items)
     localStorage.links = JSON.stringify(links)
-
+    localStorage.types = JSON.stringify(types)
   }
 }
 
+function changeName() {
+  
+}
 
 function prometeus() {
   dataInitialize()

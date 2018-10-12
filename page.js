@@ -24,32 +24,32 @@ function changeMain() {
   var links = JSON.parse(localStorage.links)
 
   var i, j
-  // var inputEmpty = true
-  // var currentEmpty = true
-  // var outputEmpty = true
+  var newInput
+  var newCurrent
+  var newOutput
+  var newItems
 
   var newInput, newCurrent, newOutput
 
   for (i = 0; i < items.length; i++) {
     if (items[i].parent == context.path) {
       displayItem(items[i])
-      // switch (items[i].target) {
-      //   case 'input':
-      //     inputEmpty = false
-      //     break;
-      //   case 'current':
-      //     currentEmpty = false
-      //     break;
-      //   case 'input':
-      //     outputEmpty = false
-      //     break;
-      // }
     }
   }
 
-  displayItem(new Item(context.path, context.input, 'input'))
-  displayItem(new Item(context.path, context.current, 'current'))
-  displayItem(new Item(context.path, context.output, 'output'))
+  newInput = new Item(context.path, context.input, 'input')
+  newCurrent = new Item(context.path, context.current, 'current')
+  newOutput = new Item(context.path, context.output, 'output')
+  newInput.id = 'newInput'
+  newCurrent.id = 'newCurrent'
+  newOutput.id = 'newOutput'
+
+  newItems = [newInput, newCurrent, newOutput]
+  localStorage.newItems = JSON.stringify(newItems)
+
+  displayItem(newInput)
+  displayItem(newCurrent)
+  displayItem(newOutput)
 
 // TODO: add parent button link to move up the path
 
@@ -61,7 +61,18 @@ function displayItem(item) {
   var div = document.createElement('div')
   var title = document.createElement('h4')
   var type = document.createElement('img')
-  // TODO: add zoom image link to switch Item and move downpath
+  var zoom = document.createElement('img')
+
+  //Get types
+  var types = JSON.parse(localStorage.types)
+  var typeImg
+  var i
+  for (i = 0; i < types.length; i++) {
+    if (types[i].name == item.type) {
+      typeImg = types[i].img
+      break
+    }
+  }
 
   div.id = item.id
   div.classList.add('item')
@@ -72,23 +83,47 @@ function displayItem(item) {
   title.addEventListener('mouseup', nameChange)
 
   type.classList.add('type')
-  type.setAttribute('src', './src/img/pixel blue.png')
+  type.setAttribute('src', typeImg)
   type.addEventListener('mouseup', typeChange)
+
+  zoom.classList.add('zoom')
+  zoom.setAttribute('src', './src/img/zoom.ico')
+  zoom.addEventListener('mouseup', zoom)
 
   div.appendChild(title)
   div.appendChild(type)
+  div.appendChild(zoom)
   target.appendChild(div)
 }
 
-function pathChange() {
+function pathChange(e) {
 
 }
 
-function nameChange() {
+function nameChange(e) {
+  var div = document.getElementById(e.target.parentNode.id)
+  var titles = div.getElementsByTagName('h4')
+  var title = titles[0]
+  console.log(title)
+  var titleInput = document.createElement('input')
+
+  titleInput.classList.add('name')
+  titleInput.setAttribute('type', 'text')
+  titleInput.setAttribute('name', 'name')
+  titleInput.setAttribute('value', e.target.innerText)
+  titleInput.setAttribute('size', '20')
+  titleInput.setAttribute('maxlength', '20')
+  titleInput.addEventListener('keypress', changeName)
+
+  div.replaceChild(title, titleInput)
+  console.log(e)
+}
+
+function typeChange(e) {
 
 }
 
-function typeChange() {
+function zoom(e) {
 
 }
 
